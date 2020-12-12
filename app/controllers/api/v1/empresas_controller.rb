@@ -1,6 +1,7 @@
 class Api::V1::EmpresasController < ApplicationController
 def index
-  render html: "hola mundo"
+  @empresas = Empresa.all
+  render json: @empresas
 end
 
 end
