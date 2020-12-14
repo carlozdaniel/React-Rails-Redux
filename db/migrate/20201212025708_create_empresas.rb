@@ -3,7 +3,6 @@ class CreateEmpresas < ActiveRecord::Migration[6.0]
     create_table :empresas do |t|
       t.string :nombre
       t.string :descripcion
-
       t.timestamps
     end
   end
