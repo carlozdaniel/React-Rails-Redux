@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      get "empresas", to: "empresas#index"
-      get "empresas/:id", to: "empresas#show"
+      resources :desarrollos
+      resources :teles
+      resources :politicas
+      resources :empresas
+      # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
     end
   end
 end

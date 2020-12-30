@@ -1,30 +1,55 @@
 class Api::V1::EmpresasController < ApplicationController
+  before_action :set_empresa, only: [:show, :update, :destroy]
+  before_action :set_models, only: [:index, :show]
+  # GET /empresas
   def index
     @empresas = Empresa.all
-    render json: @empresas, include: [:politica]
+
+    render json: @empresas, include: @models
   end
+
+  # GET /empresas/1
   def show
-    @empresas = Empresa.find(params[:id])
-    render json: @empresas, include: [:politica]
+    render json: @empresa
   end
+
+  # POST /empresas
   def create
-    @empresas = Empresas.new(params.require(:empresas).permit(:name, :description))
-    if @empresas.save()
-      render json: @empresas, stautus: :created
+    @empresa = Empresa.new(empresa_params)
+
+    if @empresa.save
+      render json: @empresa, status: :created
     else
-      render json: @empresas.errors, status: :unprossable_entity
-    end
-  def update
-    @empresas Empresa.fine(params[:id])
-    if @empresas.update((params.require(:empresas).permit(:name, :description))
-      render json: @empresas, stautus: :created
-    else
-      render json: @empresas.errors#, status: :unprossable_entity
+      render json: @empresa.errors, status: :unprocessable_entity
     end
   end
 
-  def destroy
-    @empresas Empresa.fine(params[:id])
-    @empresas.destroy
+  # PATCH/PUT /empresas/1
+  def update
+    if @empresa.update(empresa_params)
+      render json: @empresa
+    else
+      render json: @empresa.errors, status: :unprocessable_entity
+    end
   end
+
+  # DELETE /empresas/1
+  def destroy
+    @empresa.destroy
+  end
+
+  private
+
+    def set_models
+      @models = [:politica, :desarrollo, :tele]
+    end
+
+    def set_empresa
+      @empresa = Empresa.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def empresa_params
+      params.require(:empresa).permit(:name, :description, :empresa_id)
+    end
 end
