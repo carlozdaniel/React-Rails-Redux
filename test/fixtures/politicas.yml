@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  conunto_politicas: MyString
+  revision_politica: MyString
+
+two:
+  conunto_politicas: MyString
+  revision_politica: MyString
